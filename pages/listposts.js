@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import Layout from "../pages/_layout";
-import { CardDeck } from "react-bootstrap";
+import { CardColumns, CardDeck } from "react-bootstrap";
 import Post from "./post";
 import postRepository from "../helpers/PostRepository";
+
+import styles from '../styles/ListPosts.module.scss';
+import Link from "next/link";
 
 class ListPosts extends React.Component {
     constructor(props) {
@@ -25,9 +28,16 @@ class ListPosts extends React.Component {
           <h2 className="text-center text-light m-4">
             Available apartments and flats:
           </h2>
-          <div className="d-flex flex-wrap justify-content-center">
-            {this.state.posts.map(x => <Post data={x}/>)}
-          </div>
+          {/* <div className="d-flex flex-wrap justify-content-center"> */}
+          <div class={styles.card__columns + " card-columns"}>
+
+            {this.state.posts.map(x => 
+            // <div className=" col-8 col-md-4 col-lg-3 px-0">
+              <Post data={x} href={`/post/${x.id}`}/>
+            // </div>
+            )}
+            </div>
+          {/* </div> */}
         </div>
       </>
     );

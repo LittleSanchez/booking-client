@@ -6,20 +6,31 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import Link from 'next/link';
 import React from "react";
 
 function Layout({children}) {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">DreamFlat</Navbar.Brand>
+        <Link href="/">
+          <a className="navbar-brand">DreamFlat</a>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/listposts">Posts</Nav.Link>
-            <Nav.Link href="/create">Create post</Nav.Link>
-            <Nav.Link href="/login">Log in</Nav.Link>
-            <Nav.Link href="/registration">Sign up</Nav.Link>
+            <Link href="/listposts">
+              <a className="nav-link">Posts</a>
+            </Link>
+            <Link href="/create">
+              <a className="nav-link">Create post</a>
+            </Link>
+            <Link href="/login">
+              <a className="nav-link">Log in</a>
+            </Link>
+            <Link href="/registration">
+              <a className="nav-link">Sign up</a>
+            </Link>
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
