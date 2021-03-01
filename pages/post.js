@@ -3,11 +3,14 @@ import Card from "react-bootstrap/Card";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import PageDetails from "./post/details";
+import { useState } from "react";
 
 function Post({data, href, handleLinkClick}) {
-  let link = <img width="100%" src={data.imageUrl} alt="Card image cap" />;
 
-  
+    if (!data) return null;
+  let link = <img width="100%" src={data?.imageUrl} alt="Card image cap" />;
+
+  const [hovered, setHovered] = useState(false);
 
   // if (href){
   //   console.log("href");
@@ -26,13 +29,28 @@ function Post({data, href, handleLinkClick}) {
 
   if (href){
     console.log("href");
-    link = <a onClick={() => handleLinkClick(data)}>
-      <motion.img
-          width="100%"
-          src={data.imageUrl}
-          alt="Card image cap"
-          layoutId={`img${data.id}`}/>
-    </a>
+    link = (
+        <a className="position-relative" onClick={() => handleLinkClick(data)}>
+            {hovered && (
+                <motion.div className="d-flex align-items-center justify-content-center"
+                initial={{opacity: 0, position: "absolute", left: 0, right: 0, bottom: 0, top: 0, zIndex: 1}}
+                animate={{opacity: 1, backgroundColor: "rgba(0,0,0,0.222)", left: 0, right: 0, bottom: 0, top: 0, position: "absolute", zIndex: 2}}
+                >
+                    <p className="text-uppercase text-white"
+                    style={{
+                        fontWeight: 400,
+                        fontSize: "1.2em"
+                    }}>Click for details</p>
+                </motion.div>
+            )}
+            <motion.img
+                width="100%"
+                src={data?.imageUrl}
+                alt="Card image cap"
+                layoutId={`img${data?.id}`}
+            />
+        </a>
+    );
   }
   console.log(`Title${data?.id}`)
   
@@ -40,7 +58,10 @@ function Post({data, href, handleLinkClick}) {
       <>
           <motion.div
               className="card m-2 border-0 shadow"
+              style={hovered ? {zIndex: 1, position: "absolute", boxShadow: "0px 3px 15px 20px black"} : null}
               layoutId={`card-body${data?.id}`}
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
           >
               <Card.Body>
                   {/* <Card.Title tag="h4">{data.name}</Card.Title> */}
@@ -74,7 +95,14 @@ function Post({data, href, handleLinkClick}) {
                           </motion.div>
                       </div>
                   </Card.Text>
-                  <p className="card-text" layoutId={`description${data?.id}`}>{data.description}</p>
+                  {hovered && (
+                      <p
+                          className="card-text"
+                          layoutId={`description${data?.id}`}
+                      >
+                          {data.description}
+                      </p>
+                  )}
               </Card.Body>
               <Card.Footer>
                   {/* <div className="text-muted text-right"><small>- posted by Alina Black</small></div> */}
@@ -83,9 +111,6 @@ function Post({data, href, handleLinkClick}) {
                   </div>
               </Card.Footer>
           </motion.div>
-
-          
-
       </>
   );
 }

@@ -35,12 +35,12 @@ class ListPosts extends React.Component {
   render() {
     return (
         <>
-            <div className="container">
+            <div className="container ">
                 <h2 className="text-center text-light m-4">
                     Available apartments and flats:
                 </h2>
                 {/* <div className="d-flex flex-wrap justify-content-center"> */}
-                <div className={styles.card__columns + " row"}>
+                <div className={styles.card__columns + " row position-relative"}>
                     {this.state.posts.map(
                         (x) => (
                             // <div className=" col-8 col-md-4 col-lg-3 px-0">
