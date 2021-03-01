@@ -23,23 +23,29 @@ class ListPosts extends React.Component {
 
   render() {
     return (
-      <>
-        <div className="container">
-          <h2 className="text-center text-light m-4">
-            Available apartments and flats:
-          </h2>
-          {/* <div className="d-flex flex-wrap justify-content-center"> */}
-          <div class={styles.card__columns + " card-columns"}>
-
-            {this.state.posts.map(x => 
-            // <div className=" col-8 col-md-4 col-lg-3 px-0">
-              <Post data={x} href={`/post/${x.id}`}/>
-            // </div>
-            )}
+        <>
+            <div className="container">
+                <h2 className="text-center text-light m-4">
+                    Available apartments and flats:
+                </h2>
+                {/* <div className="d-flex flex-wrap justify-content-center"> */}
+                <div class={styles.card__columns + " row"}>
+                    {this.state.posts.map(
+                        (x) => (
+                            // <div className=" col-8 col-md-4 col-lg-3 px-0">
+                            <div className="col-12 col-sm-6 col-md-4 col-lg-3 px-1 my-2">
+                                <Post
+                                    data={x}
+                                    href={`/post/details?id=${x.id}`}
+                                />
+                            </div>
+                        )
+                        // </div>
+                    )}
+                </div>
+                {/* </div> */}
             </div>
-          {/* </div> */}
-        </div>
-      </>
+        </>
     );
   }
 }

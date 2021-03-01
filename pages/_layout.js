@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import Link from 'next/link';
 import React from "react";
+import { motion } from "framer-motion";
 
 function Layout({children}) {
   return (
@@ -38,7 +39,9 @@ function Layout({children}) {
           </Form>
         </Navbar.Collapse>
       </Navbar>
-      {children}
+      <motion.div>
+        {children}
+      </motion.div>
     </>
   );
 }

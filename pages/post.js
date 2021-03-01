@@ -17,39 +17,55 @@ function Post({data, href}) {
       </a>
     </Link>
   }
+  console.log(`Title${data?.id}`)
   return (
-    <>
-      <Card className="m-2 border-0 shadow">
-        <Card.Body>
-          {/* <Card.Title tag="h4">{data.name}</Card.Title> */}
-          <motion.h4 className="card-title" layoutId={`title${data.id}`}>{data.name}</motion.h4>
-          {/* <Card.Subtitle tag="h5" className="mb-2 text-muted">
+      <>
+          <motion.div
+              className="card m-2 border-0 shadow"
+              layoutId={`card-body${data?.id}`}
+          >
+              <Card.Body>
+                  {/* <Card.Title tag="h4">{data.name}</Card.Title> */}
+                  <motion.h4
+                      className="card-title"
+                      layoutId={`title${data?.id}`}
+                  >
+                      {data.name}
+                  </motion.h4>
+                  {/* <Card.Subtitle tag="h5" className="mb-2 text-muted">
             ${data.price}
           </Card.Subtitle> */}
-          <motion.h5 className="card-subtitle" layoutId={`price${data.id}`}>${data.price}</motion.h5>
-        </Card.Body>
-          {link}
-        <Card.Body>
-          <Card.Text>
-            <div className="d-flex text-secondary justify-content-between">
-              <div>
-                <i className="fas fa-bed"></i> {data.bedrooms} bedrooms
-              </div>
-              <div>
-                <i className="fas fa-bath"></i> {data.bathrooms} bathrooms
-              </div>
-            </div>
-          </Card.Text>
-          <Card.Text>
-            {data.description}
-          </Card.Text>
-        </Card.Body>
-        <Card.Footer>
-          {/* <div className="text-muted text-right"><small>- posted by Alina Black</small></div> */}
-          <div className="text-muted text-center"><small>{data.apartmentType}</small></div>
-        </Card.Footer>
-      </Card>
-    </>
+                  <motion.h5
+                      className="card-subtitle"
+                      layoutId={`price${data?.id}`}
+                  >
+                      ${data.price}
+                  </motion.h5>
+              </Card.Body>
+              {link}
+              <Card.Body>
+                  <Card.Text>
+                      <div className="d-flex text-secondary justify-content-between">
+                          <motion.div layoutId={`bedrooms${data?.id}`}>
+                              <i className="fas fa-bed"></i> {data.bedrooms}{" "}
+                              bedrooms
+                          </motion.div>
+                          <motion.div layoutId={`bathrooms${data?.id}`}>
+                              <i className="fas fa-bath"></i> {data.bathrooms}{" "}
+                              bathrooms
+                          </motion.div>
+                      </div>
+                  </Card.Text>
+                  <p className="card-text">{data.description}</p>
+              </Card.Body>
+              <Card.Footer>
+                  {/* <div className="text-muted text-right"><small>- posted by Alina Black</small></div> */}
+                  <div className="text-muted text-center">
+                      <small>{data.apartmentType}</small>
+                  </div>
+              </Card.Footer>
+          </motion.div>
+      </>
   );
 }
 

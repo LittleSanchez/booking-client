@@ -5,11 +5,11 @@ import { AnimateSharedLayout } from "framer-motion";
 function MyApp({ Component, pageProps }) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;
   return (
-      <Layout>
-          <AnimateSharedLayout>
+      <AnimateSharedLayout type="crossfade">
+          <Layout>
               <Component {...pageProps} />
-          </AnimateSharedLayout>
-      </Layout>
+          </Layout>
+      </AnimateSharedLayout>
   );
 }
 

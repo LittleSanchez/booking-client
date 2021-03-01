@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import Link from "next/link";
 import Layout from "../pages/_layout";
 
 function Welcome() {
@@ -6,7 +8,12 @@ function Welcome() {
     <>
      <div className='welcome_height d-flex align-items-center flex-column'>
         <div className="welcome_margin">
-        <h1>Find your dream flat</h1>
+        <motion.h1
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }} layoutId="main-title">Find your dream flat</motion.h1>
+        <Link href="/about">
+          <a>About</a>
+        </Link>
         </div>
         <div>
         <ul className="welcome_ul list-unstyled mt-4">
