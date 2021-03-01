@@ -2,22 +2,40 @@ import Layout from "../pages/_layout";
 import Card from "react-bootstrap/Card";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import PageDetails from "./post/details";
 
-function Post({data, href}) {
+function Post({data, href, handleLinkClick}) {
   let link = <img width="100%" src={data.imageUrl} alt="Card image cap" />;
+
+  
+
+  // if (href){
+  //   console.log("href");
+  //   link = <Link href={href}>
+  //     <a>
+  //     <motion.img
+  //         width="100%"
+  //         src={data.imageUrl}
+  //         alt="Card image cap"
+  //         layoutId={`img${data.id}`}/>
+  //     </a>
+  //   </Link>
+  // }
+
+  
+
   if (href){
     console.log("href");
-    link = <Link href={href}>
-      <a>
+    link = <a onClick={() => handleLinkClick(data)}>
       <motion.img
           width="100%"
           src={data.imageUrl}
           alt="Card image cap"
           layoutId={`img${data.id}`}/>
-      </a>
-    </Link>
+    </a>
   }
   console.log(`Title${data?.id}`)
+  
   return (
       <>
           <motion.div
@@ -56,7 +74,7 @@ function Post({data, href}) {
                           </motion.div>
                       </div>
                   </Card.Text>
-                  <p className="card-text">{data.description}</p>
+                  <p className="card-text" layoutId={`description${data?.id}`}>{data.description}</p>
               </Card.Body>
               <Card.Footer>
                   {/* <div className="text-muted text-right"><small>- posted by Alina Black</small></div> */}
@@ -65,6 +83,9 @@ function Post({data, href}) {
                   </div>
               </Card.Footer>
           </motion.div>
+
+          
+
       </>
   );
 }
