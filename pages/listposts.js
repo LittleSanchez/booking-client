@@ -6,19 +6,29 @@ import postRepository from "../helpers/PostRepository";
 import styles from '../styles/ListPosts.module.scss';
 import Link from "next/link";
 import PageDetails from "./post/details";
+import Pagination from "../components/pagination";
+import { withRouter } from "next/router";
+
 
 class ListPosts extends React.Component {
     constructor(props) {
-      super(props);
-      this.state = { posts: [], selectedPost: null };
+        super(props);
+        this.state = { posts: [], selectedPost: null, filters: null, page: props.router.query.page };
     }
 
-    async componentDidMount() {
-      let posts = await postRepository.get();
 
-      this.setState(
-        {posts: posts,}
-        );
+    async componentDidMount() {
+    //   let posts = await postRepository.get();
+    //   let pagePosts = await postRepository.getWithFilters(2); 
+        await this.loadPosts();
+    }
+
+    async loadPosts() {
+
+        let filters = (await postRepository.getWithFilters(this.state.page));
+        let posts = filters.posts;
+        // console.log(pagePosts);
+          this.setState({ posts: posts, filters: filters });
     }
 
     setSelectedPost = (post) => {
@@ -30,6 +40,11 @@ class ListPosts extends React.Component {
 
     closeDetails = () => this.setState({selectedPost: null});
 
+
+    setPage = (page) => {
+        this.props.router.query.page = page;
+        this.setState({page: page});
+    }
     
 
   render() {
@@ -62,12 +77,16 @@ class ListPosts extends React.Component {
                         handleClose={this.closeDetails}
                     />
                 )}
+                <div className="d-flex justify-content-center">
+                    <Pagination initialPage={this.state.page} handleChange={(page) => setPage(page)} pagesCount={this.state.filters?.totalPages}/>
+                </div>
             </div>
         </>
     );
   }
 }
 
-ListPosts.Layout = Layout;
+let Export =  withRouter(ListPosts);
+Export.Layout = Layout;
 
-export default ListPosts;
+export default Export;
