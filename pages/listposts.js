@@ -13,26 +13,47 @@ import { withRouter } from "next/router";
 class ListPosts extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { posts: [], selectedPost: null, filters: null, page: props.router.query.page };
+        this.state = { posts: [], selectedPost: null, filters: null };
+    }
+
+    handleRouterChange() {
+        let routeChange = (url, params) => {
+            console.log(url);
+        }
+        this.props.router.events.on('routeChangeStart', routeChange)
+
+        // If the component is unmounted, unsubscribe
+        // from the event with the `off` method:
+        return () => {
+            this.props.router.events.off("routeChangeStart", routeChange);
+        }
     }
 
 
     async componentDidMount() {
     //   let posts = await postRepository.get();
     //   let pagePosts = await postRepository.getWithFilters(2); 
-        await this.loadPosts();
+        this.loadPosts();
+        return this.handleRouterChange();
+    }
+
+    async componentDidUpdate() {
+        const {query} = this.props.router;
+        console.log("test: " + this.state.page + " ; " + query.page);
+        if (this.state.page != query.page) {
+            await this.loadPosts();
+        }
+        return this.handleRouterChange();
     }
 
     async loadPosts() {
 
         let filters = (await postRepository.getWithFilters(this.state.page));
         let posts = filters.posts;
-        // console.log(pagePosts);
-          this.setState({ posts: posts, filters: filters });
+          this.setState({ posts: posts, filters: filters, page: +this.props.router.query.page ?? 1 });
     }
 
     setSelectedPost = (post) => {
-      console.log(post);
       this.setState({
           selectedPost: post,
       });
@@ -78,7 +99,7 @@ class ListPosts extends React.Component {
                     />
                 )}
                 <div className="d-flex justify-content-center">
-                    <Pagination initialPage={this.state.page} handleChange={(page) => setPage(page)} pagesCount={this.state.filters?.totalPages}/>
+                    <Pagination initialPage={this.state.page ?? 1} handleChange={(page) => this.setPage(page)} pagesCount={this.state.filters?.totalPages}/>
                 </div>
             </div>
         </>

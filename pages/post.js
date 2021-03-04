@@ -28,13 +28,12 @@ function Post({data, href, handleLinkClick}) {
   
 
   if (href){
-    console.log("href");
     link = (
         <a className="position-relative" onClick={() => handleLinkClick(data)}>
             {hovered && (
                 <motion.div className="d-flex align-items-center justify-content-center"
-                initial={{opacity: 0, position: "absolute", left: 0, right: 0, bottom: 0, top: 0, zIndex: 1}}
-                animate={{opacity: 1, backgroundColor: "rgba(0,0,0,0.222)", left: 0, right: 0, bottom: 0, top: 0, position: "absolute", zIndex: 2}}
+                initial={{opacity: 0, position: "absolute", left: 0, right: 0, bottom: 0, top: 0, zIndex: 10}}
+                animate={{opacity: 1, backgroundColor: "rgba(0,0,0,0.222)", left: 0, right: 0, bottom: 0, top: 0, position: "absolute", zIndex: 11}}
                 >
                     <p className="text-uppercase text-white"
                     style={{
@@ -52,13 +51,12 @@ function Post({data, href, handleLinkClick}) {
         </a>
     );
   }
-  console.log(`Title${data?.id}`)
   
   return (
       <>
           <motion.div
               className="card m-2 border-0 shadow"
-              style={hovered ? {zIndex: 1, position: "absolute", boxShadow: "0px 3px 15px 20px black"} : null}
+              style={hovered ? {zIndex: 5, position: "absolute", boxShadow: "0px 3px 15px 20px black"} : null}
               layoutId={`card-body${data?.id}`}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
