@@ -33,10 +33,10 @@ function Layout({children}) {
               <a className="nav-link">Sign up</a>
             </Link>
           </Nav>
-          <Form inline>
+          {/* <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-secondary">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
       </Navbar>
       <motion.div>
