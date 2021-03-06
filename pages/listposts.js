@@ -76,11 +76,11 @@ class ListPosts extends React.Component {
                     Available apartments and flats:
                 </h2>
                 {/* <div className="d-flex flex-wrap justify-content-center"> */}
-                <div className={styles.card__columns + " row position-relative"}>
+                <div className={styles.card__columns + " row"}>
                     {this.state.posts.map(
                         (x) => (
                             // <div className=" col-8 col-md-4 col-lg-3 px-0">
-                            <div className="col-12 col-sm-6 col-md-4 col-lg-3 px-1 my-2">
+                            <div className="col-12 col-sm-6 col-md-4 col-lg-3 px-1 my-2 ">
                                 <Post
                                     data={x}
                                     href={`/post/details?id=${x.id}`}

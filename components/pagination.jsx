@@ -12,12 +12,11 @@ function Pagination({initialPage, handleChange, pagesCount}){
 
         console.log(page);
         let shift = -1 * (page - 1 - diff < 0 ? page - diff - 1 : page + diff - pagesCount > 0 ? page + diff - pagesCount : 0);
-
         // let leftShift = Math.abs(Math.min(page - 1 - diff, 0));
         // let rightShift = Math.max(page + diff - pagesCount, 0);
 
         let min = page - diff + shift;
-        let max = page + diff + shift;
+        let max = Math.min(page + diff + shift, pagesCount);
 
         console.log(`shift ${shift}, min : ${min}, maxx: ${max}`);
 
